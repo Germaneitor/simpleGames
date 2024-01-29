@@ -1,0 +1,4 @@
+## Python Games
+
+This repository contains simple games done using Python, some of them use different libraries, others don't. I am using this to practice Python as a language and see what I can do with different libraries; I got through tutorials to get a general idea of the tools, so some of these might be just going through said tutorial to create that game. The idea is to maybe create a game using what I learn; I may leave this dry for a long time but I hope to come to back often to work on something. If it's not this, then it may be something with my inputs repo.
+Also, both of them are allowing to get more used to using git to do work.
