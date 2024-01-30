@@ -1,8 +1,5 @@
 # Terminal Snake Game
 
-# Inverted coordinate values for moving based on 2D Arrays
-# indexing for position
-
 import random
 
 class Snake(object):
