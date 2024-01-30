@@ -3,6 +3,8 @@
 # Inverted coordinate values for moving based on 2D Arrays
 # indexing for position
 
+import random
+
 class Snake(object):
     def __init__(self, init_body, init_direction) -> None:
         self._body = init_body
@@ -53,6 +55,7 @@ class Game(object):
         self.snake = Snake([(0, 0), (1, 0), (2, 0), (3, 0)], self.UP)
 
     def play(self):
+        self._generate_apple()
         self._render()
 
         while True:
@@ -65,8 +68,18 @@ class Game(object):
                 self.snake.set_direction(self.LEFT)
             elif direction == self.INPUT_RIGHT:
                 self.snake.set_direction(self.RIGHT)
+            
             next_position = self._next_position(self.snake.head(), self.snake._direction)
-            self.snake.take_step(next_position)
+            if next_position in self.snake._body:
+                print("You crashed into yourself!")
+                break
+
+            if next_position == self.current_apple._location:
+                self.snake.extend_body(next_position)
+                self._generate_apple()
+            else:
+                self.snake.take_step(next_position)
+            
             self._render()
 
     def _next_position(self, position, direction):
@@ -82,7 +95,21 @@ class Game(object):
 
         head = self.snake.head()
         matrix[head[0]][head[1]] = self.HEAD
+
+        apple = self.current_apple._location
+        matrix[apple[0]][apple[1]] = self.APPLE
+        
         return matrix
+
+    def _generate_apple(self):
+        while True:
+            apple_location = (
+                random.randint(0, self.width - 1),
+                random.randint(0, self.height - 1)
+            )
+            if apple_location not in self.snake._body:
+                break
+        self.current_apple = Apple(apple_location)
 
     def _render(self):
         matrix = self._board_matrix()
