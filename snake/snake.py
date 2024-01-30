@@ -6,7 +6,8 @@
 import random
 
 class Snake(object):
-    def __init__(self, init_body, init_direction) -> None:
+    def __init__(self, init_body=[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0)], 
+                 init_direction=(1, 0)) -> None:
         self._body = init_body
         self._direction = init_direction
 
@@ -23,7 +24,7 @@ class Snake(object):
         return self._body[-1]
 
 class Apple(object):
-    def __init__(self, location):
+    def __init__(self, location) -> None:
         self._location = location
 
 class Game(object):
@@ -49,10 +50,10 @@ class Game(object):
     INPUT_LEFT = "A"
     INPUT_RIGHT = "D"
 
-    def __init__(self, width, height) -> None:
+    def __init__(self, width=15, height=10) -> None:
         self.height = height
         self.width = width
-        self.snake = Snake([(0, 0), (1, 0), (2, 0), (3, 0)], self.UP)
+        self.snake = Snake()
 
     def play(self):
         self._generate_apple()
@@ -60,15 +61,16 @@ class Game(object):
 
         while True:
             direction = input().upper()
-            if direction == self.INPUT_UP:
-                self.snake.set_direction(self.UP)
-            elif direction == self.INPUT_DOWN:
-                self.snake.set_direction(self.DOWN)
-            elif direction == self.INPUT_LEFT:
-                self.snake.set_direction(self.LEFT)
-            elif direction == self.INPUT_RIGHT:
-                self.snake.set_direction(self.RIGHT)
-            
+            match direction:
+                case self.INPUT_UP:
+                    self.snake.set_direction(self.UP)
+                case self.INPUT_DOWN:
+                    self.snake.set_direction(self.DOWN)
+                case self.INPUT_LEFT:
+                    self.snake.set_direction(self.LEFT)
+                case self.INPUT_RIGHT:
+                    self.snake.set_direction(self.RIGHT)
+
             next_position = self._next_position(self.snake.head(), self.snake._direction)
             if next_position in self.snake._body:
                 print("You crashed into yourself!")
@@ -127,5 +129,5 @@ class Game(object):
         print(top_and_bottom_border)
 
 
-game = Game(10, 8)
+game = Game()
 game.play()
