@@ -1,6 +1,7 @@
 # Terminal Snake Game
 
 import random
+import time
 
 class Snake(object):
     def __init__(self, init_body=[(0, 0), (1, 0), (2, 0), (3, 0), (4, 0)], 
@@ -53,6 +54,8 @@ class Game(object):
         self.snake = Snake()
 
     def play(self):
+        self.score = 0
+        self.total_apples = 0
         self._generate_apple()
         self._render()
 
@@ -75,6 +78,8 @@ class Game(object):
 
             if next_position == self.current_apple._location:
                 self.snake.extend_body(next_position)
+                self.total_apples += 1
+                self.score += (10 * self.total_apples) // 5
                 self._generate_apple()
             else:
                 self.snake.take_step(next_position)
@@ -115,6 +120,7 @@ class Game(object):
 
         top_and_bottom_border = "+" + "-" * self.width + "+"
 
+        print("SCORE:", self.score)
         print(top_and_bottom_border)
         for y in range(0, self.height):
             line = "|"
@@ -125,6 +131,6 @@ class Game(object):
             print(line)
         print(top_and_bottom_border)
 
-
-game = Game()
-game.play()
+if __name__ == "__main__":
+    game = Game()
+    game.play()
