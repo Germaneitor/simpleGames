@@ -19,10 +19,27 @@ def render(board):
         print(line)
     print("   ------")
 
+def get_player_move():
+    x_coord = int(input("Enter your move's X-coordinate:"))
+    y_coord = int(input("Enter your move's Y-coordinate:"))
+    return (x_coord, y_coord)
+
+def make_move(board, player_move, player):
+    new_board = board
+    new_board[player_move[0]][player_move[1]] = player
+    return new_board
+
+def valid_move(board, move):
+    return board[move[0]][move[1]] is None
+
 def get_winner():
     pass
 
 board = create_board()
-board[0][1] = 'X'
-board[1][1] = 'O'
-render(board)
+while True:
+    move = get_player_move()
+    if valid_move(board, move):
+        board = make_move(board, move, 'X')
+        render(board)
+    else:
+        print('Invalid move!')
