@@ -43,7 +43,6 @@ def get_winner(board):
         [board[0][0], board[1][1], board[2][2]],
         [board[0][2], board[1][1], board[2][0]]
     ]
-    print(rows + columns + diagonals)
     return rows + columns + diagonals
 
 def check_draw(board):
